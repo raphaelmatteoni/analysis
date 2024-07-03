@@ -2,11 +2,12 @@
 
 def read_weather_data(file_path)
   data = []
-  File.foreach(file_path).with_index do |line, index|
-    next if index <= 5
-
+  content = File.read(file_path)
+  pre_content = content.match(/<pre>(.*?)<\/pre>/m)[1]
+  pre_content.each_line.with_index do |line, index|
+    next if index <= 4
+    
     columns = line.split
-    next unless columns.size >= 3
 
     data << {
       day: columns[0].to_i,
