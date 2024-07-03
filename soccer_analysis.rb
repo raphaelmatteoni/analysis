@@ -1,4 +1,4 @@
-# soccer_analysis.rb
+# frozen_string_literal: true
 
 def read_soccer_data(file_path)
   data = []
