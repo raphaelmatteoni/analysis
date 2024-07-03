@@ -1,29 +1,17 @@
-# frozen_string_literal: true
-
-def read_weather_data(file_path)
-  data = []
-  content = File.read(file_path)
-  pre_content = content.match(/<pre>(.*?)<\/pre>/m)[1]
-  pre_content.each_line.with_index do |line, index|
-    next if index <= 4 # header
-    
-    columns = line.split
-
-    data << {
-      day: columns[0].to_i,
-      max_temp: columns[1].to_i,
-      min_temp: columns[2].to_i
-    }
-  end
-  data
-end
+require_relative 'data_processor'
 
 def find_day_with_smallest_temp_spread(data)
   data.min_by { |entry| entry[:max_temp] - entry[:min_temp] }
 end
 
 def find_data_from_file(file_path)
-  data = read_weather_data(file_path)
+  data = DataProcessor.process_data(file_path, skip_lines: 5) do |columns|
+    {
+      day: columns[0].to_i,
+      max_temp: columns[1].to_i,
+      min_temp: columns[2].to_i
+    }
+  end
   day_info = find_day_with_smallest_temp_spread(data)
   {
     day: day_info[:day],
