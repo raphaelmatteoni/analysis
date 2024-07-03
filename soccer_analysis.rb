@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'data_processor'
 
 def find_team_with_smallest_difference(data)
@@ -22,7 +24,7 @@ def find_data_from_file(file_path)
   }
 end
 
-file_path = "soccer.dat"
+file_path = 'soccer.dat'
 data = find_data_from_file(file_path)
 
 puts "Team with the smallest goal difference: #{data[:team]} " \
