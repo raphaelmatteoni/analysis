@@ -5,7 +5,7 @@ def read_weather_data(file_path)
   content = File.read(file_path)
   pre_content = content.match(/<pre>(.*?)<\/pre>/m)[1]
   pre_content.each_line.with_index do |line, index|
-    next if index <= 4
+    next if index <= 4 # header
     
     columns = line.split
 
@@ -33,7 +33,7 @@ def find_data_from_file(file_path)
   }
 end
 
-file_path = 'w_data.dat'
+file_path = "w_data.dat"
 data = find_data_from_file(file_path)
 
 puts "Day with the smallest temperature spread: #{data[:day]} " \
